@@ -1,9 +1,9 @@
-# Your Name Here
+# Meghan Longua
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section: 
-# Sources, people worked with, help given to: 
+# Submission Date: 11/20/2024
+# Lab 10
+# Lab Section: 15
+# Sources, people worked with, help given to: Abby Ferguson
 # your
 # comments
 # here
@@ -43,3 +43,30 @@ def get_hash(to_hash):
 # Hash each individual password and compare it against the stored hash.
 # - When you find the match, print the plaintext version of the password.
 # - End your loop.
+
+
+def find_correct_password():
+    try:
+        hash_file_path = Path('hash')
+        with open(hash_file_path) as file:
+            target_hash = file.read().strip() 
+    except Exception as e:
+        print(f"There was a problem reading the file: {e}")
+        return
+    
+    try:
+        rockyou_file_path = Path('rockyou.txt')
+        with open(rockyou_file_path, encoding='utf-8') as file:
+            passwords = file.readlines()
+    except Exception as e:
+        print(f"Error reading the rockyou.txt file: {e}")
+        return
+
+    for password in passwords:
+        password = password.strip()  
+        if get_hash(password) == target_hash:
+            print(f"Password found successfully: {password}")
+            return  
+    print("Your password was not found")
+
+find_correct_password()
